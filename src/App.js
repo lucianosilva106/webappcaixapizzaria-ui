@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import apiFuncionario from './api';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends Component{
+
+  state= {
+    filmes: [],
+  }
+  
+  async componentDidMount(){
+    const response = await apiFuncionario.get('');
+    console.log(response.data);
+
+    this.setState({ filmes: response.data});
+  }
+
+  render() {
+    return(
+      <div>
+         <h1>Listar os Filmes</h1>
+      </div>
+    );
+  };
+};
 
 export default App;
