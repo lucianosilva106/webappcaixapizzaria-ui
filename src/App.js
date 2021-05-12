@@ -1,27 +1,20 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import apiFuncionario from './api';
+import { Route } from 'react-router';
+import { Layout } from './components/Layout';
+import { Home } from './components/Home';
+import { Login } from './components/Login';
 
-class App extends Component{
+import './custom.css'
 
-  state= {
-    filmes: [],
-  }
-  
-  async componentDidMount(){
-    const response = await apiFuncionario.get('');
-    console.log(response.data);
+export default class App extends Component {
+  static displayname = App.name;
 
-    this.setState({ filmes: response.data});
-  }
-
-  render() {
-    return(
-      <div>
-         <h1>Listar os Filmes</h1>
-      </div>
+  render () {
+    return (
+      <Layout>
+        <Route exact path='/' component={Home} />
+        <Route path='/login' component={Login} />
+      </Layout>
     );
-  };
-};
-
-export default App;
+  }
+}
