@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-
+//import axios from 'axios';
+//import { apiFuncionario } from './apifuncionario';
 
 export class ListaFuncionario extends Component {
-    static displayName = "Funcionarios";
+    static displayName = "Lista de Funcionarios";
 
     constructor() {
         super();
         this.state = { funcionarios: [], loading: true}
     }
+
+//    alert()
 
     componentDidMount() {
         this.populaFuncionarioData();
@@ -22,7 +25,7 @@ export class ListaFuncionario extends Component {
             return;
         }
         else {
-            fetch('api/funcionarios/' + id, {method : 'delete'})
+            fetch('apiFuncionario' + id, {method : 'delete'})
                 .then(json => {
                     window.location.href = "fetch=funcionario";
                     alert('Deletado com sucesso!');
@@ -31,6 +34,8 @@ export class ListaFuncionario extends Component {
     }
 
     static renderFuncionariosTabela(funcionarios) {
+        
+        alert('estou aqui')
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
               <thead>
@@ -55,5 +60,25 @@ export class ListaFuncionario extends Component {
                 </tbody>
             </table>
         );
+    }
+
+    render () {
+        let contents = this.state.loading
+        ? <p><em>Carregando...</em></p>
+        : ListaFuncionario.renderFuncionariosTabela(this.state.funcionarios);
+
+        return(
+            <div>
+                <h1 id="tabelLabel" >Funcionarios</h1>
+                <p>Tela de Listagem de Funcionarios</p>
+                {contents}
+            </div>
+        );
+    }
+
+    async populaFuncionarioData() {
+        const response = await fetch('https://localhost:44331/api/funcionarios');
+        const data = await response.json();
+        this.setState({funcionarios : data, loading: false});
     }
 }
