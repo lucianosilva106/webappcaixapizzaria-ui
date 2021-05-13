@@ -14,45 +14,30 @@ export class AddFuncionario extends React.Component {
             fun_senha: ''
         };
 
-        this.handleChange = this.handleChange.bind(this);
+//        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(evento) {
-        this.setState({id: evento.target.id});
-        this.setState({fun_nome: evento.target.fun_nome});
-        this.setState({fun_chapeira: evento.target.fun_chapeira});
-        this.setState({fun_login: evento.target.fun_login});
-        this.setState({fun_senha: evento.target.fun_senha});
-        evento.preventDefault();
-    }
+//    handleChange(evento) {
+//        this.setState({id: evento.target.id});
+//        this.setState({fun_nome: evento.target.fun_nome});
+//        this.setState({fun_chapeira: evento.target.fun_chapeira});
+//        this.setState({fun_login: evento.target.fun_login});
+//        this.setState({fun_senha: evento.target.fun_senha});
+//        evento.preventDefault();
+//    }
 
     async handleSubmit(evento) {
         alert('Um formulario foi enviado:' + JSON.stringify(this.state));
         evento.preventDefault();
 
-//        try {
-//           const response = await fetch('https://localhost:44331/api/funcionarios', {  
-//                method: 'POST', 
-//                body: JSON.stringify(this.state) });
-//             return response.json();
-//            // toast.success('Salvo com sucesso!');
-//        }
-//        catch(error) {
-            //    toast.error('Ocorreu um erro ao salvar!');
-//                Alert('Erro ao salvar!')
-            //    console.error(error);
- //       }
-
-       fetch('https://localhost:44331/api/funcionarios', {
+        fetch('https://localhost:44331/api/funcionarios', {
            method: 'POST',
-            body: {"id":'',"fun_nome":'mario',"fun_chapeira":'123',"fun_login":'mario.com',"fun_senha":'123mudar'}
+            body: JSON.stringify(this.state) 
         }).then(function(response) {
             console.log(response)
             return response.json();
         });
-
-        evento.preventDefault();
     }
 
     render() {
@@ -64,40 +49,36 @@ export class AddFuncionario extends React.Component {
                 Id:
                     <input 
                         name="id"
-                        value={this.state.id}
-                        onChange={this.handleChange} 
+                        type="number"
+                        onChange={e => this.setState({id: e.target.value})}
                     />
                     <br />
                 Nome:
                     <input 
                         name="fun_nome"
                         type="text" 
-                        value={this.state.fun_nome}
-                        onChange={this.handleChange} 
+                        onChange={e => this.setState({fun_nome: e.target.value})}
                     />
                     <br />
                 Chapeira:
                     <input 
                         name="fun_chapeira"
                         type="text" 
-                        value={this.state.fun_chapeira}
-                        onChange={this.handleChange} 
+                        onChange={e => this.setState({fun_chapeira: e.target.value})}
                     />
                     <br />
                 Login:
                     <input 
                         name="fun_login"
                         type="text" 
-                        value={this.state.fun_login}
-                        onChange={this.handleChange} 
+                        onChange={e => this.setState({fun_login: e.target.value})}
                     />
                     <br />
                 Senha:
                     <input 
                         name="fun_senha"
                         type="password" 
-                        value={this.state.fun_senha}
-                        onChange={this.handleChange} 
+                        onChange={e => this.setState({fun_senha: e.target.value})}
                     />
                     <br />
                 </label>
