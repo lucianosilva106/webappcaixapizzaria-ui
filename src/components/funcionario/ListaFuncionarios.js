@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-//import axios from 'axios';
-//import { apiFuncionario } from './apifuncionario';
+//import {AddFuncionario} from './AddFuncionario';
 
 export class ListaFuncionario extends Component {
     static displayName = "Lista de Funcionarios";
@@ -25,9 +24,8 @@ export class ListaFuncionario extends Component {
             return;
         }
         else {
-            fetch('apiFuncionario' + id, {method : 'delete'})
+            fetch('https://localhost:44331/api/funcionarios' + id, {method : 'delete'})
                 .then(json => {
-                    window.location.href = "fetch=funcionario";
                     alert('Deletado com sucesso!');
                 })
         }
@@ -35,7 +33,7 @@ export class ListaFuncionario extends Component {
 
     static renderFuncionariosTabela(funcionarios) {
         
-        alert('estou aqui')
+//      alert('estou aqui')
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
               <thead>
@@ -70,7 +68,9 @@ export class ListaFuncionario extends Component {
         return(
             <div>
                 <h1 id="tabelLabel" >Funcionarios</h1>
-                <p>Tela de Listagem de Funcionarios</p>
+                <p>
+                    
+                </p>
                 {contents}
             </div>
         );
