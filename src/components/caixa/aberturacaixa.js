@@ -43,6 +43,7 @@ export class AddAberturaCaixa extends React.Component {
         <div class="container">
             <ToastContainer />
             <div class="card mx-auto shadow -lg p-3 mb-5 bg-white rounded animate_animated animate_zoomIn">
+                <h2>Abertura de Caixa</h2>
             <form onSubmit={this.handleSubmit}>
                 <label>Data/Hora Abertura...:</label>
                     <input
@@ -52,16 +53,18 @@ export class AddAberturaCaixa extends React.Component {
                     />
                     <br />
                 <label>Funcionario...................:</label>
-                    <input
-                        name="idfuncionario"
-                        type="int"
-                        onChange={e => this.setState({idfuncionario: e.target.value})}
-                    />
+                <select  name="idfuncionario"
+                    onChange={e => this.setState({idfuncionario: e.target.value})}>
+                        <option value="">Selecione</option>
+                        <option value="1">Luciano Ferreira da Silva</option>
+                        <option value="2">Josiane</option>
+                        <option value="3">Matheus Alecsander</option>
+                </select>
                     <br />
                 <label>Valor Inicial de Caixa..:</label>
                     <input
                         name="valorfundocaixa"
-                        type="text"
+                        type="float"
                         onChange={e => this.setState({valorfundocaixa: e.target.value})}
                     />
                     <br />
