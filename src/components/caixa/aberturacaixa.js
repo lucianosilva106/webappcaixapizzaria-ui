@@ -1,82 +1,74 @@
-import React, { Component } from 'react'
+import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export class ListaCaixacontrole extends Component {
-    static displayName = "Controles de Caixas";
-
-    constructor() {
+export class AddAberturaCaixa extends React.Component {
+    constructor(props) {
         super();
-        this.state = { caixacontroles: [], loading: true}
+        this.state = {
+            id: 0,
+            datahoraabertura: '',
+            idfuncionario: 0,
+            valorfundocaixa: 0,
+            datahorafechamento: '2021-05-14T10:45:00',
+            valorfinalcaixa: 0
+        };
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-//    alert()
 
-    componentDidMount() {
-        this.populaCaixacontroleData();
+    async handleSubmit(evento) {
+        const data = JSON.stringify(this.state)
+        alert('Um formulario foi enviado:' + data);
+        evento.preventDefault();
+
+        fetch('https://localhost:44331/api/caixacontroles', {
+           method: 'POST',
+           headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+           },
+            body: data
+        }).then(function(response) {
+            toast.success('Caixa aberto sucesso!')
+            return response.json();
+        }).catch(function(erro) {
+            toast.error('Erro ao abrir caixa')
+        })
     }
 
-    static handleEdit(id) {
-        window.location.href = "/caixacontrole/edit/" + id;
-    }
-
-    static handleDelete(id) {
-        if (!window.confirm("Deseja deletar caixa :" + id)) {
-            return;
-        }
-        else {
-            fetch('apiCaixacontrole' + id, {method : 'delete'})
-                .then(json => {
-                    window.location.href = "fetch=caixacontrole";
-                    alert('Deletado com sucesso!');
-                })
-        }
-    }
-
-    static renderCaixacontrolesTabela(caixacontroles) {
-        
-        alert('estou aqui')
-        return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-              <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Data de Abertura</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {caixacontroles.map(caixacontrole =>
-                        <tr key={caixacontrole.id}>
-                            <td> {caixacontrole.id} </td>
-                            <td>{caixacontrole.datahoraabertura} </td>
-
-                            <td>
-                                <button className="btn btn-success" onClick={(id) => this.handleEdit(caixacontrole.id)}>Edit</button> &nbsp;
-                                <button className="btn btn-danger" onClick={(id) => this.handleDelete(caixacontrole.id)}>Delete</button>
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        );
-    }
-
-    render () {
-        let contents = this.state.loading
-        ? <p><em>Carregando...</em></p>
-        : ListaCaixacontrole.renderCaixacontrolesTabela(this.state.caixacontroles);
-
+    render() {
         return(
-            <div>
-                <h1 id="tabelLabel" >Controle de Caixas</h1>
-                <p>Tela de Listagem de Controle de Caixas</p>
-                {contents}
+        <div class="container">
+            <ToastContainer />
+            <div class="card mx-auto shadow -lg p-3 mb-5 bg-white rounded animate_animated animate_zoomIn">
+            <form onSubmit={this.handleSubmit}>
+                <label>Data/Hora Abertura...:</label>
+                    <input
+                        name="datahoraabertura"
+                        type="datetime-local"
+                        onChange={e => this.setState({datahoraabertura: e.target.value})}
+                    />
+                    <br />
+                <label>Funcionario...................:</label>
+                    <input
+                        name="idfuncionario"
+                        type="int"
+                        onChange={e => this.setState({idfuncionario: e.target.value})}
+                    />
+                    <br />
+                <label>Valor Inicial de Caixa..:</label>
+                    <input
+                        name="valorfundocaixa"
+                        type="text"
+                        onChange={e => this.setState({valorfundocaixa: e.target.value})}
+                    />
+                    <br />
+                <input type="submit" value="Enviar" />
+            </form>
             </div>
+        </div>
         );
-    }
-
-    async populaCaixacontroleData() {
-        const response = await fetch('https://localhost:44331/api/caixacontroles');
-        const data = await response.json();
-        this.setState({caixacontroles : data, loading: false});
     }
 }
