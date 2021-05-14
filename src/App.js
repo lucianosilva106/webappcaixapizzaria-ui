@@ -5,7 +5,7 @@ import {Home} from './components/Home';
 import {Login} from './components/Login';
 import {ListaFuncionario} from './components/funcionario/ListaFuncionarios';
 import {AddAberturaCaixa} from './components/caixa/aberturacaixa';
-import {ListaCaixalancamento} from './components/caixa/lancamentocaixa';
+import {AddCaixaRecebe} from './components/caixa/recebecomanda';
 import {AddFuncionario} from './components/funcionario/AddFuncionario';
 
 import './custom.css'
@@ -21,7 +21,7 @@ export default class App extends Component {
           <Route path='/login' component={Login}/>
           <Route path='/funcionario-lista' component={ListaFuncionario}/>
           <Route path='/caixa-abertura' component={AddAberturaCaixa}/>
-          <Route path='/caixa-lancamento' component={ListaCaixalancamento}/>
+          <Route path='/caixa-lancamento' component={AddCaixaRecebe}/>
           <Route path='/funcionario-add' component={AddFuncionario}/>
         </Layout>
       </Router>
