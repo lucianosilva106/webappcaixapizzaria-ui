@@ -24,29 +24,29 @@ export class NavMenu extends Component {
   render () {
     return (
       <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
-          <Container>
-            <NavbarBrand tag={Link} to="/">Aplicação Web Caixa Pizzaria Fun</NavbarBrand>
+        <Navbar className="nav navbar-expand-sm navbar-toggleable-sm ng-white box-shadow mb-3 fixed-top" light>
+          <Container >
+            <NavbarBrand tag={Link} to="/"><h4>CAIXA PIZZARIA FUN</h4></NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                  <NavLink tag={Link} className="text-white" to="/">HOME</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
+                  <NavLink tag={Link} className="text-white" to="/login">LOGIN</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/funcionario-lista">Lista Funcionários</NavLink>
+                  <NavLink tag={Link} className="text-white" to="/funcionario-lista">FUNCIONÁRIOS</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/caixa-abertura">Abertura de Caixa</NavLink>
+                  <NavLink tag={Link} className="text-white" to="/caixa-abertura">ABRIR CAIXA</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/caixa-lancamento">Recebe Comanda</NavLink>
+                  <NavLink tag={Link} className="text-white" to="/caixa-lancamento">RECEBER COMANDA</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/funcionario-add">Cadastra Funcionario</NavLink>
+                  <NavLink tag={Link} className="text-white" to="/funcionario-add">CADASTRAR FUNCIONÁRIO</NavLink>
                 </NavItem>
               </ul>
             </Collapse>

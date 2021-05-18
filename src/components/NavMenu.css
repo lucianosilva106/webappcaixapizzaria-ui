@@ -1,7 +1,22 @@
-﻿a.navbar-brand {
+﻿
+
+.nav{
+  background-color: #20232a;
+  display: block;
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-weight: bold;
+}
+
+
+a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+
+}
+
+h4{
+  color: white;
 }
 
 html {
