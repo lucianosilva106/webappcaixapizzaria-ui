@@ -1,4 +1,4 @@
-import { Alert } from 'bootstrap';
+//import { Alert } from 'bootstrap';
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,10 +10,13 @@ export class AddCaixaRecebe extends React.Component {
         this.state = {
             id: 0,
             idcaixacontrole: 1,
+            comanda: 0,
             datahora: '',
             tipolancamento: 'E',
             valor: 0,
             idformapagamento: 0,
+            valorrecebido: 0,
+            troco: 0,
             observacao: ''
         };
 
@@ -21,53 +24,47 @@ export class AddCaixaRecebe extends React.Component {
     }
 
     async handleSubmit(evento) {
-        const data = JSON.stringify(this.state)
-//        alert('Um formulário foi enviado:' + data);
-        evento.preventDefault();
+        try{
+            evento.preventDefault();
 
-        const novoObjeto = {
-            id: data.id,
-            idcaixacontrole: data.idcaixacontrole,
-            datahora: data.datahora,
-            tipolancamento: data.tipolancamento,
-            valor: data.valor,
-            idformapagamento: data.idformapagamento,
-            observacao: data.observacao
+            const novoObjeto = {
+             id: this.state.id,
+             idcaixacontrole: this.state.idcaixacontrole,
+             datahora: this.state.datahora,
+             tipolancamento: this.state.tipolancamento,
+             valor: this.state.valor,
+             idformapagamento: this.state.idformapagamento,
+             observacao: this.state.observacao
+            }
+
+            const data = JSON.stringify(novoObjeto)   
+
+            await fetch('https://localhost:44331/api/caixalancamentoes', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            })
+
+            const response2 = await fetch('https://localhost:44331/api/caixalancamentoes');
+            const datalan = await response2.json();
+            this.setState({ caixalancamentos: datalan, loading: true });
+            toast.success('Comanda encerra com sucesso!')
+        } catch (erro) {
+            toast.error('Erro ao encerrar a comanda')
         }
-        console.log(novoObjeto.value)
-        
-        alert('Um formulário foi enviado:' + novoObjeto);
-
-        fetch('https://localhost:44331/api/caixalancamentoes', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: novoObjeto
-        }).then(function (response) {
-            toast.success('Comanda recebida e encerrada!')
-            return response.json();
-        }).catch(function (erro) {
-            toast.error('Erro ao encerrar comanda')
-        })
-
-        const response2 = await fetch('https://localhost:44331/api/caixalancamentoes');
-        const datalan = await response2.json();
-//        alert('lancamentos efetuados:' + datalan);
-        this.setState({ caixalancamentos: datalan, loading: true });
-
     }
+    
+    async calculo_troco(){
+        var vltroco = 0;
+        alert('estou no troco' + this.state.valorrecebido);
 
-//    async calculo_troco(vltroco){
-//        var vlt = document.getElementById('valor');
-//        var vlr = document.getElementById('valorecebido');
-//
-//        vltroco = vlr - vlt;
-
-//        Alert(vlr-vlt)
-//        document.getElementById('troco').value = vltroco;
-//    }
+        vltroco = parseFloat(this.state.valorrecebido) - parseFloat(this.state.valor);
+        alert('calculo do troco' + vltroco);
+        this.state.troco = vltroco;
+    }
 
     render() {
         return (
@@ -75,76 +72,87 @@ export class AddCaixaRecebe extends React.Component {
                 <ToastContainer />
                 <div class="card-form mx-auto shadow -lg p-5 mb-5 bg-white rounded animate_animated animate_zoomIn">
                     <h2>
-                        <span className="font-weight-bold">Recebimento de Comanda</span>
+                        <span className="font-weight-bold">Recebimento da Comanda</span>
                     </h2>
                     <br />
 
                     <Form onSubmit={this.handleSubmit}>
-                        <FormGroup>
-                            <Label>No. da Comanda:</Label>
-                            <Input type="int" />
-                        </FormGroup>
-                        <br />
-                        <FormGroup>
-                        <Label>Data/Hora:</Label>
-                        <Input
-                            name="datahora"
-                            type="datetime-local"
-                            onChange={e => this.setState({ datahora: e.target.value })}
-                        />
-                        </FormGroup>
-                        <br />
-                        <FormGroup>
-                        <Label>Valor da comanda:</Label>
-                        <Input
-                            name="valor"
-                            type="float"
-                            onChange={e => this.setState({ valor: e.target.value })}
-                        />
-                        </FormGroup>
-                        <br />
-                        <FormGroup>
-                        <Label>Forma de Pagamento:</Label>
-                        <div className="form-group">
-                        <select className="form-control" name="idformapagamento"
-                            onChange={e => this.setState({ idformapagamento: e.target.value })}>
-                            <option value="">Selecione</option>
-                            <option value="1">Dinheiro</option>
-                            <option value="2">Débito</option>
-                            <option value="3">Crédito</option>
-                        </select>
-                        <br />
-                        <Label>Valor recebido:</Label>
-                        <Input
-                            name="valorrecebido"
-                            type="float"
-                        />
-                        <Label>Troco:</Label>
-                        <Input
-                            name="troco"
-                            type="float"
-                        />
+                        <div className="row">
+                            <div className="col-12 col-md-6">
+                                <FormGroup>
+                                    <Label>No. da Comanda:</Label>
+                                    <Input
+                                        required="required"
+                                        name="comanda"
+                                        type="int"
+                                        onChange={e => this.setState({ comanda: e.target.value })}
+                                    />
+                                </FormGroup>
+                                <br />
+                                <FormGroup>
+                                    <Label>Data/Hora:</Label>
+                                    <Input
+                                        required="required"
+                                        name="datahora"
+                                        type="datetime-local"
+                                        onChange={e => this.setState({ datahora: e.target.value })}
+
+                                    />
+                                </FormGroup>
+                                <br />
+                                <FormGroup>
+                                    <Label>Valor:</Label>
+                                    <Input
+                                        required="required"
+                                        name="valor"
+                                        type="float"
+                                        onChange={e => this.setState({ valor: e.target.value })}
+
+                                    />
+                                </FormGroup>
+                            </div>
+                            <br />
+                            <div className="col-12 col-md-6">
+                                <FormGroup>
+                                    <Label>Forma de Pagamento:</Label>
+                                    <div className="form-group">
+                                        <select className="form-control" name="idformapagamento" id="formapagamento"
+                                            required="required"
+                                            onChange={e => this.setState({ idformapagamento: e.target.value })}>
+                                            <option value="">Selecione</option>
+                                            <option value="1">Dinheiro</option>
+                                            <option value="2">Débito</option>
+                                            <option value="3">Crédito</option>
+                                        </select>
+                                    </div>
+
+                                </FormGroup>
+                                <br />
+
+                                <FormGroup>
+                                    <Label>Valor Recebido:</Label>
+                                    <Input
+                                        name="valorrecebido"
+                                        type="float"
+                                    />
+                                </FormGroup>
+                                <br />
+                                <FormGroup>
+                                    <Label>Troco:</Label>
+                                    <Input
+                                        name="troco"
+                                        type="float"
+                                    />
+                                </FormGroup>
+                            </div>
+                            <br />
+                            <div className="col-12">
+                                <br />
+                                <Button className="offset-md-8 col-md-4 btn-lg btn-dark btn-block" type="submit" value="Receber">Confimar</Button>
+                            </div>
                         </div>
-                        </FormGroup>
-                        <br />
-                        <Button className="col-md-12 btn-lg btn-dark btn-block" type="submit" value="Receber">Confimar</Button>
                     </Form>
                 </div>
-                <table className='table table-striped' aria-labelledby="tabelLabel">
-                    <thead class="thead-dark">
-                        <tr>
-                          
-                            <th scope="col">No. comanda</th>
-                            <th scope="col">Data/Hora</th>
-                            <th scope="col">Valor</th>
-                            <th scope="col">Forma Pagamento</th>
-                            
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
             </div>
         );
     }
