@@ -58,12 +58,15 @@ export class AddCaixaRecebe extends React.Component {
     }
     
     async calculo_troco(){
-        var vltroco = 0;
-        alert('estou no troco' + this.state.valorrecebido);
+//        var vlrecebido = 100;
+//        var vltroco = 0;
+//        alert('estou no troco' + vlrecebido);
 
-        vltroco = parseFloat(this.state.valorrecebido) - parseFloat(this.state.valor);
-        alert('calculo do troco' + vltroco);
-        this.state.troco = vltroco;
+//        vltroco = parseFloat(vlrecebido) - parseFloat(this.state.valor);
+//          vltroco = 20
+//        alert('calculo do troco' + vltroco);
+//        document.getElementById("troco").value = parseInt(vltroco);
+//        this.state.troco = parseInt(vltroco);
     }
 
     render() {
