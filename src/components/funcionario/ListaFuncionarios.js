@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-//import {AddFuncionario} from './AddFuncionario';
+//import {AddFuncionario} from './AddFuncionario'
 
 export class ListaFuncionario extends Component {
     static displayName = "Lista de Funcionarios";

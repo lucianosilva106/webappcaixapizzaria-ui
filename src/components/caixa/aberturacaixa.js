@@ -2,6 +2,7 @@ import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import URL_API from '../../service/service-api'
 
 export class AddAberturaCaixa extends React.Component {
     constructor(props) {
@@ -12,7 +13,8 @@ export class AddAberturaCaixa extends React.Component {
             idfuncionario: 0,
             valorfundocaixa: 0,
             datahorafechamento: '2021-05-14T10:45:00',
-            valorfinalcaixa: 0
+            valorfinalcaixa: 0,
+            flagcaixafechado: 0
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,7 +26,7 @@ export class AddAberturaCaixa extends React.Component {
 //        alert('Um formulario foi enviado:' + data);
         evento.preventDefault();
 
-        fetch('https://localhost:44331/api/caixacontroles', {
+        fetch(URL_API + '/api/caixacontroles', {
            method: 'POST',
            headers: {
             'Accept': 'application/json',

@@ -3,6 +3,7 @@ import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import URL_API from '../../service/service-api';
 
 export class AddCaixaRecebe extends React.Component {
     constructor(props) {
@@ -34,12 +35,13 @@ export class AddCaixaRecebe extends React.Component {
              tipolancamento: this.state.tipolancamento,
              valor: this.state.valor,
              idformapagamento: this.state.idformapagamento,
-             observacao: this.state.observacao
+             observacao: this.state.observacao,
+             comanda: this.state.comanda
             }
 
             const data = JSON.stringify(novoObjeto)   
 
-            await fetch('https://localhost:44331/api/caixalancamentoes', {
+            await fetch(URL_API + '/api/caixalancamentoes', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -48,7 +50,7 @@ export class AddCaixaRecebe extends React.Component {
                 body: data
             })
 
-            const response2 = await fetch('https://localhost:44331/api/caixalancamentoes');
+            const response2 = await fetch(URL_API + '/api/caixalancamentoes');
             const datalan = await response2.json();
             this.setState({ caixalancamentos: datalan, loading: true });
             toast.success('Comanda encerra com sucesso!')
