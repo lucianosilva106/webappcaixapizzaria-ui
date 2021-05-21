@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 //import {AddFuncionario} from './AddFuncionario'
+import URL_API from '../../service/service-api';
 
 export class ListaFuncionario extends Component {
     static displayName = "Lista de Funcionarios";
