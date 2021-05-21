@@ -22,7 +22,7 @@ export class AddFuncionario extends React.Component {
         alert('Um formulario foi enviado:' + data);
         evento.preventDefault();
 
-        fetch('https://localhost:44331/api/funcionarios', {
+        fetch(URL_API + '/api/funcionarios', {
            method: 'POST',
            headers: {
             'Accept': 'application/json',

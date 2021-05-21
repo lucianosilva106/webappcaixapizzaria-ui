@@ -24,7 +24,7 @@ export class ListaFuncionario extends Component {
             return;
         }
         else {
-            fetch('https://localhost:44331/api/funcionarios' + id, {method : 'delete'})
+            fetch(URL_API + '/api/funcionarios' + id, {method : 'delete'})
                 .then(json => {
                     alert('Deletado com sucesso!');
                 })
@@ -77,7 +77,7 @@ export class ListaFuncionario extends Component {
     }
 
     async populaFuncionarioData() {
-        const response = await fetch('https://localhost:44331/api/funcionarios');
+        const response = await fetch(URL_API + '/api/funcionarios');
         const data = await response.json();
         this.setState({funcionarios : data, loading: false});
     }
