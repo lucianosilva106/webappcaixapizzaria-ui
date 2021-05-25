@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import URL_API from '../../service/service-api';
 
-export class AddCaixaRecebe extends React.Component {
+export class AddCaixaSangria extends React.Component {
     constructor(props) {
         super();
         this.state = {
@@ -12,9 +12,9 @@ export class AddCaixaRecebe extends React.Component {
             idcaixacontrole: 1,
             comanda: 0,
             datahora: '',
-            tipolancamento: 'E',
+            tipolancamento: 'S',
             valor: 0,
-            idformapagamento: 0,
+            idformapagamento: 1,
             valorrecebido: 0,
             troco: 0,
             observacao: ''
@@ -76,7 +76,7 @@ export class AddCaixaRecebe extends React.Component {
                 <ToastContainer />
                 <div class="card-form mx-auto shadow -lg p-5 mb-5 bg-white rounded animate_animated animate_zoomIn">
                     <h2>
-                        <span className="font-weight-bold">Recebimento da Comanda</span>
+                        <span className="font-weight-bold">Lançamento de Sangria</span>
                     </h2>
                     <br />
 
@@ -84,23 +84,12 @@ export class AddCaixaRecebe extends React.Component {
                         <div className="row">
                             <div className="col-12 col-md-6">
                                 <FormGroup>
-                                    <Label>No. da Comanda:</Label>
-                                    <Input
-                                        required="required"
-                                        name="comanda"
-                                        type="int"
-                                        onChange={e => this.setState({ comanda: e.target.value })}
-                                    />
-                                </FormGroup>
-                                <br />
-                                <FormGroup>
                                     <Label>Data/Hora:</Label>
                                     <Input
                                         required="required"
                                         name="datahora"
                                         type="datetime-local"
                                         onChange={e => this.setState({ datahora: e.target.value })}
-
                                     />
                                 </FormGroup>
                                 <br />
@@ -111,41 +100,6 @@ export class AddCaixaRecebe extends React.Component {
                                         name="valor"
                                         type="float"
                                         onChange={e => this.setState({ valor: e.target.value })}
-
-                                    />
-                                </FormGroup>
-                            </div>
-                            <br />
-                            <div className="col-12 col-md-6">
-                                <FormGroup>
-                                    <Label>Forma de Pagamento:</Label>
-                                    <div className="form-group">
-                                        <select className="form-control" name="idformapagamento" id="formapagamento"
-                                            required="required"
-                                            onChange={e => this.setState({ idformapagamento: e.target.value })}>
-                                            <option value="">Selecione</option>
-                                            <option value="1">Dinheiro</option>
-                                            <option value="2">Débito</option>
-                                            <option value="3">Crédito</option>
-                                        </select>
-                                    </div>
-
-                                </FormGroup>
-                                <br />
-
-                                <FormGroup>
-                                    <Label>Valor Recebido:</Label>
-                                    <Input
-                                        name="valorrecebido"
-                                        type="float"
-                                    />
-                                </FormGroup>
-                                <br />
-                                <FormGroup>
-                                    <Label>Troco:</Label>
-                                    <Input
-                                        name="troco"
-                                        type="float"
                                     />
                                 </FormGroup>
                             </div>

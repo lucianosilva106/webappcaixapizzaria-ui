@@ -20,7 +20,6 @@ export class AddFuncionario extends React.Component {
 
     async handleSubmit(evento) {
         const data = JSON.stringify(this.state)
-        alert('Um formulario foi enviado:' + data);
         evento.preventDefault();
 
         fetch(URL_API + '/api/funcionarios', {

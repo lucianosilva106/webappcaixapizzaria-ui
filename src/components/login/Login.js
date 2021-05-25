@@ -1,27 +1,17 @@
 import React from 'react';
 import './Login.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-
+import MontaDropDownLogin from './montadropdownlogin';
 
 export class Login extends React.Component {
     constructor() {
         super();
-
-        this.state = { login: "" };
-        this.state = { senha: "" };
-
-        this.onChange = (evento) => {
-            this.setState({ login: evento.target.value });
-            this.setState({ senha: evento.target.value });
-            console.log(evento);
-        };
-
+        this.state = {senha: ''};
     }
 
     render() {
         return (
             <body>
-
                 <div className="container col-md-6">
                     <div className="box">
                         <div class="card mx-auto shadow -lg p-5 mb-5 bg-white rounded animate_animated animate_zoomIn">
@@ -32,7 +22,9 @@ export class Login extends React.Component {
                                 <br/>
                                 <FormGroup>
                                     <Label>Login</Label>
-                                    <Input name="login" type="text" placeholder="Insira seu usuário" value={this.state.login} onChange={this.onChange}></Input>
+                                    <div className="form-group">
+                                        {< MontaDropDownLogin />}
+                                    </div>
                                 </FormGroup>
                                 <br/>
                                 <FormGroup>
@@ -44,9 +36,6 @@ export class Login extends React.Component {
                                 Log in 
                             </Button>
                             </Form>
-                            
-                            
-                           
                         </div>
                     </div>
                 </div>

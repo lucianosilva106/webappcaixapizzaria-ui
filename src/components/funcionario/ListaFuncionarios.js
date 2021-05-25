@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-//import {AddFuncionario} from './AddFuncionario'
 import URL_API from '../../service/service-api';
 
 export class ListaFuncionario extends Component {
@@ -9,8 +8,6 @@ export class ListaFuncionario extends Component {
         super();
         this.state = { funcionarios: [], loading: true}
     }
-
-//    alert()
 
     componentDidMount() {
         this.populaFuncionarioData();
@@ -34,7 +31,6 @@ export class ListaFuncionario extends Component {
 
     static renderFuncionariosTabela(funcionarios) {
         
-//      alert('estou aqui')
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
               <thead>
