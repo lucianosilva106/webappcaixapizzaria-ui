@@ -30,7 +30,7 @@ export default class App extends Component {
           <Route path='/caixa-sangria' component={AddCaixaSangria}/>
           <Route path='/caixa-controle' component={ListaCaixa}/>
           <Route path='/caixa-lancamento' component={ListaLancamento}/>
-          <Route path='/caixa-fechamento' component={FechamentoCaixa}/>
+          <Route path='/caixa-fechamento/edit/:id' component={FechamentoCaixa}/>
           <Route path='/funcionario-add' component={AddFuncionario}/>
         </Layout>
       </Router>

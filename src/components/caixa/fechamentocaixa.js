@@ -1,44 +1,63 @@
 import React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import URL_API from '../../service/service-api'
 import { withRouter} from 'react-router-dom';
 
-class FechamentoCaixa extends React.Component {
-    constructor(props) {
-        super();
+export class Caixacontrole {
+    construtor(){
         this.state = {
-            id: 0,
-            datahoraabertura: '',
-            idfuncionario: 0,
-            valorfundocaixa: 0,
-            datahorafechamento: '',
-            valorfinalcaixa: 0,
-            flagcaixafechado: 1
-        };
+            datahorafechamento: 0,
+            valorfinalcaixa: 0
+        }
+    }
+}
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+class FechamentoCaixa extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { title: "", caixacontrole: new Caixacontrole(), loading: true };
+        this.inicialize();
+        this.handleCancel = this.handleCancel.bind(this);
+        this.handleSalve = this.handleSalve.bind(this);
     }
 
-    async handleSubmit(evento) {
-        const data = JSON.stringify(this.state)
-//        alert('Um formulario foi enviado:' + data);
-        evento.preventDefault();
-        alert(data)
-        fetch(URL_API + '/api/caixacontroles', {
-           method: 'PUT',
-           headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-           },
-            body: data
-        }).then(function(response) {
-            toast.success('Caixa encerrado com sucesso!')
-            return response.json();
-        }).catch(function(erro) {
-            toast.error('Erro ao fechar caixa')
-        })
+    async inicialize() {
+
+        var id = this.props.match.params["id"]
+    
+        if (id > 0) {
+            const response = await fetch(URL_API + 'api/caixacontroles/' + id);
+            const data = await response.json();
+            this.setState({ title: "Edit", caixacontrole: data, loading: false });
+        }
+        else {
+            this.state = { title: "Create", caixacontrole: new Caixacontrole(), loaging: false };
+        }
+    } 
+
+    handleCancel(event) {
+        event.preventDefault();
+        this.props.history.push("/caixa-controle")
+    }
+
+    handleSalve(event) {
+
+        var id = this.props.match.params["id"]
+        event.preventDefault();
+        const data = new FormData(event.target);
+        alert(this.props.match.params["id"]);
+        alert(URL_API + '/api/caixacontroles/' + id);
+        if (id > 0) {
+            const response1 = fetch(URL_API + '/api/caixacontroles/' + id, { method: "PUT", body: data });
+            this.props.history.push("/caixa-controle");
+        }
+        else {
+            const response2 = fetch(URL_API + 'api/caixacontroles/' , { method: "POST", body: data });
+            this.props.history.push("/caixa-controle");
+        }
     }
 
     render() {
@@ -51,7 +70,7 @@ class FechamentoCaixa extends React.Component {
                         <span className="col-12 font-weight-bold">Fechamento de Caixa</span>
                     </h2>
                     <br />
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form onSubmit={this.handleSalve}>
                         <div className="col-12">
                             <FormGroup>
                                 <Label>Data/Hora Fechamento:</Label>

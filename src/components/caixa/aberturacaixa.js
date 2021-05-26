@@ -20,7 +20,6 @@ export class AddAberturaCaixa extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-
     async handleSubmit(evento) {
         const data = JSON.stringify(this.state)
 //        alert('Um formulario foi enviado:' + data);
