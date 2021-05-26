@@ -9,6 +9,10 @@ class FechamentoCaixa extends React.Component {
     constructor(props) {
         super();
         this.state = {
+            id: 0,
+            datahoraabertura: '',
+            idfuncionario: 0,
+            valorfundocaixa: 0,
             datahorafechamento: '',
             valorfinalcaixa: 0,
             flagcaixafechado: 1
@@ -21,7 +25,7 @@ class FechamentoCaixa extends React.Component {
         const data = JSON.stringify(this.state)
 //        alert('Um formulario foi enviado:' + data);
         evento.preventDefault();
-
+        alert(data)
         fetch(URL_API + '/api/caixacontroles', {
            method: 'PUT',
            headers: {
