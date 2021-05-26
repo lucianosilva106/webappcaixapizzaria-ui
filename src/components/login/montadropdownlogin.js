@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import DropDownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
 import URL_API from '../../service/service-api'
 
-function MontaDropDownLogin()
-{
-    const [result, getdata]=useState([]);
-    useEffect(()=>{
-        fetch(URL_API + '/api/funcionarios',{
-            method:'GET',
-            headers:{
-                'content-type':'aplication/json',
-            }
-        })
-        .then(resp=>getdata(resp))
-    },[])
-    return(
-        <div>
-            <DropDownButton id="dropdown-basic-button" title="Funcionario">
+const fetchURL = URL_API + '/api/funcionarios';
+const getItems = () => fetch(fetchURL).then(res => res.json());
+
+function MontaDropDownLogin() {
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        getItems().then(data => setItems(data))
+    }, []);
+
+    return (
+        <div className="form-group">
+            <select className="form-control" id="nomefun" required="required">
+            <option value="">Selecione o funcionário</option>
                 {
-                    result.map(Items=>{
+                    items.map(item => {
                         return(
-                            <Dropdown.Item eventkey={Items.fun_nome}>{Items.fun_nome}</Dropdown.Item>
+                            <option value="" >{item.fun_nome}</option>
                         );
                     })
                 }
-            </DropDownButton>
+            </select>
         </div>
-    )
+    );
 }
 export default MontaDropDownLogin;

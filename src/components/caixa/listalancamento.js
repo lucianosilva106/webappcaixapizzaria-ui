@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import URL_API from '../../service/service-api';
 
-export class ListaCaixa extends Component {
+export class ListaLancamento extends Component {
     static displayName = "Lista de Lançamentos de Caixa";
 
     constructor() {
@@ -32,9 +32,11 @@ export class ListaCaixa extends Component {
               <thead>
                     <tr>
                         <th>Código</th>
+                        <th>Caixa</th>
                         <th>Comanda</th>
                         <th>Data</th>
                         <th>Valor</th>
+                        <th>E/S</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -42,9 +44,11 @@ export class ListaCaixa extends Component {
                     {caixalancamentos.map(caixalancamento =>
                         <tr key={caixalancamento.id}>
                             <td>{caixalancamento.id}</td>
+                            <td>{caixalancamento.idcaixacontrole}</td>
                             <td>{caixalancamento.comanda}</td>
                             <td>{caixalancamento.datahora}</td>
                             <td>{caixalancamento.valor}</td>
+                            <td>{caixalancamento.tipolancamento}</td>
 
                             <td>
                                 <button className="btn btn-danger" onClick={(id) => this.handleDelete(caixalancamento.id)}>Delete</button>
@@ -59,7 +63,7 @@ export class ListaCaixa extends Component {
     render () {
         let contents = this.state.loading
         ? <p><em>Carregando...</em></p>
-        : ListaCaixa.renderCaixaLancamentoTabela(this.state.caixalancamentos);
+        : ListaLancamento.renderCaixaLancamentoTabela(this.state.caixalancamentos);
 
         return(
             <div>
