@@ -9,13 +9,8 @@ import { withRouter} from 'react-router-dom';
 export class Caixacontrole {
     construtor(){
         this.state = {
-            id: null,
-            datahoraabertura: null,
-            idfuncionario: null,
-            valorfundocaixa: null,
             datahorafechamento: null,
-            valorfinalcaixa: null,
-            flagcaixafechado: null
+            valorfinalcaixa: null
         }
     }
 }
@@ -37,7 +32,14 @@ class FechamentoCaixa extends React.Component {
         if (idcx > 0) {
             const response = await fetch(URL_API + '/api/caixacontroles/' + idcx);
             const data = await response.json();
+            
+            this.state.id = data.id
+            this.state.datahoraabertura = data.datahoraabertura
+            this.state.idfuncionario = data.idfuncionario
+            this.state.valorfundocaixa = data.valorfundocaixa
+            
             this.setState({ title: "Edit", caixacontrole: data, loading: false });
+
             alert('id>0' + this.state )
         }
         else {

@@ -29,7 +29,11 @@ class ListaCaixa extends Component {
               <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Data/Hora de Abertura</th>
+                        <th>Data/Hora Abertura</th>
+                        <th>Func</th>
+                        <th>Valor Fundo Caixa</th>
+                        <th>Data/Hora Fechamento</th>
+                        <th>Valor Final Caixa</th>
                         <th>Flag Fechado</th>
                         <th></th>
                     </tr>
@@ -39,6 +43,10 @@ class ListaCaixa extends Component {
                         <tr key={caixacontrole.id}>
                             <td> {caixacontrole.id} </td>
                             <td>{caixacontrole.datahoraabertura} </td>
+                            <td>{caixacontrole.idfuncionario}</td>
+                            <td>{caixacontrole.valorfundocaixa}</td>
+                            <td>{caixacontrole.datahorafechamento}</td>
+                            <td>{caixacontrole.valorfinalcaixa}</td>
                             <td>{caixacontrole.flagcaixafechado}</td>
 
                             <td>
