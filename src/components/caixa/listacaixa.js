@@ -16,13 +16,6 @@ class ListaCaixa extends Component {
 
     static handleEdit(id) {
         window.location.href = "/caixa-fechamento/edit/" + id;
-//        this.props.history.push
-//        ({
-//            pathname:"/caixa-fechamento/",
-//            state:{
-//                key: this.state.id.value
-//             }
-//           })
     }
 
     static handleLancamento(id) {

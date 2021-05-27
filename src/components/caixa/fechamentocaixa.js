@@ -4,12 +4,18 @@ import { ToastContainer } from 'react-toastify';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import URL_API from '../../service/service-api'
 import { withRouter} from 'react-router-dom';
+//import { response } from 'express';
 
 export class Caixacontrole {
     construtor(){
         this.state = {
-            datahorafechamento: 0,
-            valorfinalcaixa: 0
+            id: null,
+            datahoraabertura: null,
+            idfuncionario: null,
+            valorfundocaixa: null,
+            datahorafechamento: null,
+            valorfinalcaixa: null,
+            flagcaixafechado: null
         }
     }
 }
@@ -18,7 +24,7 @@ class FechamentoCaixa extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { title: "", caixacontrole: new Caixacontrole(), loading: true };
+        this.state = {caixacontrole: new Caixacontrole(), loading: true };
         this.inicialize();
         this.handleCancel = this.handleCancel.bind(this);
         this.handleSalve = this.handleSalve.bind(this);
@@ -26,12 +32,13 @@ class FechamentoCaixa extends React.Component {
 
     async inicialize() {
 
-        var id = this.props.match.params["id"]
+        var idcx = this.props.match.params["id"]
     
-        if (id > 0) {
-            const response = await fetch(URL_API + 'api/caixacontroles/' + id);
+        if (idcx > 0) {
+            const response = await fetch(URL_API + '/api/caixacontroles/' + idcx);
             const data = await response.json();
             this.setState({ title: "Edit", caixacontrole: data, loading: false });
+            alert('id>0' + this.state )
         }
         else {
             this.state = { title: "Create", caixacontrole: new Caixacontrole(), loaging: false };
@@ -43,22 +50,45 @@ class FechamentoCaixa extends React.Component {
         this.props.history.push("/caixa-controle")
     }
 
-    handleSalve(event) {
-
-        var id = this.props.match.params["id"]
+    async handleSalve(event) {
         event.preventDefault();
-        const data = new FormData(event.target);
-        alert(this.props.match.params["id"]);
-        alert(URL_API + '/api/caixacontroles/' + id);
-        if (id > 0) {
-            const response1 = fetch(URL_API + '/api/caixacontroles/' + id, { method: "PUT", body: data });
-            this.props.history.push("/caixa-controle");
+        const idcx = this.props.match.params["id"]
+//        const data = this.state;
+
+        const novoObject = {
+          id: idcx, 
+          datahoraabertura: this.state.datahoraabertura,
+          idfuncionario: this.state.idfuncionario,
+          valorfundocaixa: this.state.valorfundocaixa,
+          datahorafechamento: this.state.datahorafechamento,
+          valorfinalcaixa: this.state.valorfinalcaixa,
+          flagcaixafechado: 1
         }
-        else {
-            const response2 = fetch(URL_API + 'api/caixacontroles/' , { method: "POST", body: data });
-            this.props.history.push("/caixa-controle");
+
+        const dataput = JSON.stringify(novoObject)
+        alert('novo objeto:' + dataput);
+        if (idcx > 0) {
+          await fetch(URL_API + '/api/caixacontroles/' + idcx, {
+            method: "PUT",
+            body: dataput,
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          });
+          this.props.history.push("/caixa-controle");
+        } else {
+          await fetch(URL_API + 'api/caixacontroles/', {
+            method: "POST",
+            body: dataput,
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          });
+          this.props.history.push("/caixa-controle");
         }
-    }
+      }
 
     render() {
         return(
