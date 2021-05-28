@@ -22,6 +22,14 @@ class ListaCaixa extends Component {
         window.location.href = "/caixa-lancamento/"+ id;
     }
 
+    static handleRecebecomanda(id) {
+        window.location.href = "/caixa-recebe/"+ id;
+    }
+    static handleLancasangria(id) {
+        window.location.href = "/caixa-sangria/"+ id;
+    }
+
+
     static renderCaixacontrolesTabela(caixacontroles) {
         
         return (
@@ -39,7 +47,7 @@ class ListaCaixa extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {caixacontroles.map(caixacontrole =>
+                    {caixacontroles.reverse().map(caixacontrole =>
                         <tr key={caixacontrole.id}>
                             <td> {caixacontrole.id} </td>
                             <td>{caixacontrole.datahoraabertura} </td>
@@ -51,7 +59,9 @@ class ListaCaixa extends Component {
 
                             <td>
                                 <button className="btn btn-success" onClick={(id) => this.handleEdit(caixacontrole.id)}>Fechar Caixa</button> &nbsp;
-                                <button className="btn btn-danger" onClick={(id) => this.handleLancamento(caixacontrole.id)}>Lancamentos</button>
+                                <button className="btn btn-danger" onClick={(id) => this.handleLancamento(caixacontrole.id)}>Ver Lancamentos</button>
+                                <button className="btn btn-danger" onClick={(id) => this.handleRecebecomanda(caixacontrole.id)}>Receber Comanda</button>
+                                <button className="btn btn-danger" onClick={(id) => this.handleLancasangria(caixacontrole.id)}>Lanca Sangria</button>
                             </td>
                         </tr>
                     )}

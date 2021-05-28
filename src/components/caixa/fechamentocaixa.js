@@ -40,7 +40,7 @@ class FechamentoCaixa extends React.Component {
             
             this.setState({ title: "Edit", caixacontrole: data, loading: false });
 
-            alert('id>0' + this.state )
+//            alert('id>0' + this.state )
         }
         else {
             this.state = { title: "Create", caixacontrole: new Caixacontrole(), loaging: false };
@@ -55,8 +55,6 @@ class FechamentoCaixa extends React.Component {
     async handleSalve(event) {
         event.preventDefault();
         const idcx = this.props.match.params["id"]
-//        const data = this.state;
-
         const novoObject = {
           id: idcx, 
           datahoraabertura: this.state.datahoraabertura,

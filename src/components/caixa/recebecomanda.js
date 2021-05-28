@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import URL_API from '../../service/service-api';
+import { withRouter} from 'react-router-dom';
 
 export class AddCaixaRecebe extends React.Component {
     constructor(props) {
@@ -26,10 +27,11 @@ export class AddCaixaRecebe extends React.Component {
     async handleSubmit(evento) {
         try{
             evento.preventDefault();
+            var idcx = this.props.match.params["id"]
 
             const novoObjeto = {
              id: this.state.id, 
-             idcaixacontrole: this.state.idcaixacontrole,
+             idcaixacontrole: idcx,
              datahora: this.state.datahora,
              tipolancamento: this.state.tipolancamento,
              valor: this.state.valor,
@@ -48,11 +50,8 @@ export class AddCaixaRecebe extends React.Component {
                 },
                 body: data
             })
-
-            const response2 = await fetch(URL_API + '/api/caixalancamentoes');
-            const datalan = await response2.json();
-            this.setState({ caixalancamentos: datalan, loading: true });
             toast.success('Comanda encerra com sucesso!')
+            this.props.history.push("/caixa-controle");
         } catch (erro) {
             toast.error('Erro ao encerrar a comanda')
         }
@@ -161,3 +160,4 @@ export class AddCaixaRecebe extends React.Component {
         );
     }
 }
+export default withRouter(AddCaixaRecebe)

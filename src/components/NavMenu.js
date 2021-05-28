@@ -43,16 +43,7 @@ export class NavMenu extends Component {
                   <NavLink tag={Link} className="text-white" to="/caixa-abertura">ABRIR CAIXA</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-white" to="/caixa-recebe">RECEBER COMANDA</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-white" to="/caixa-sangria">LANÇAR SANGRIA</NavLink>
-                </NavItem>
-                <NavItem>
                   <NavLink tag={Link} className="text-white" to="/caixa-controle">CONTROLES CAIXA</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-white" to="/caixa-lancamento">LANCTOS CAIXA</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-white" to="/funcionario-add">CADASTRAR FUNCIONÁRIO</NavLink>

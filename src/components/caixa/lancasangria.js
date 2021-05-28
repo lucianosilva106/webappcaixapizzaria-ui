@@ -3,8 +3,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import URL_API from '../../service/service-api';
+import { withRouter} from 'react-router-dom';
 
-export class AddCaixaSangria extends React.Component {
+class AddCaixaSangria extends React.Component {
     constructor(props) {
         super();
         this.state = {
@@ -26,10 +27,11 @@ export class AddCaixaSangria extends React.Component {
     async handleSubmit(evento) {
         try{
             evento.preventDefault();
+            var idcx = this.props.match.params["id"]
 
             const novoObjeto = {
              id: this.state.id, 
-             idcaixacontrole: this.state.idcaixacontrole,
+             idcaixacontrole: idcx,
              datahora: this.state.datahora,
              tipolancamento: this.state.tipolancamento,
              valor: this.state.valor,
@@ -48,28 +50,13 @@ export class AddCaixaSangria extends React.Component {
                 },
                 body: data
             })
-
-            const response2 = await fetch(URL_API + '/api/caixalancamentoes');
-            const datalan = await response2.json();
-            this.setState({ caixalancamentos: datalan, loading: true });
             toast.success('Sangria registrada com sucesso!')
+            this.props.history.push("/caixa-controle");
         } catch (erro) {
             toast.error('Erro ao registrar sangria')
         }
     }
-    
-    async calculo_troco(){
-//        var vlrecebido = 100;
-//        var vltroco = 0;
-//        alert('estou no troco' + vlrecebido);
-
-//        vltroco = parseFloat(vlrecebido) - parseFloat(this.state.valor);
-//          vltroco = 20
-//        alert('calculo do troco' + vltroco);
-//        document.getElementById("troco").value = parseInt(vltroco);
-//        this.state.troco = parseInt(vltroco);
-    }
-
+        
     render() {
         return (
             <div class="container">
@@ -115,3 +102,4 @@ export class AddCaixaSangria extends React.Component {
         );
     }
 }
+export default withRouter(AddCaixaSangria)

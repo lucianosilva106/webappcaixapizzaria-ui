@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import URL_API from '../../service/service-api';
-import {withRouter} from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 
-export class ListaLancamento extends Component {
+class ListaLancamento extends React.Component {
     static displayName = "Lista de Lançamentos de Caixa";
 
     constructor(props) {
@@ -80,8 +80,6 @@ export class ListaLancamento extends Component {
     async populaCaixaLancamentoData() {
         
         var idcx = this.props.match.params["id"]
-        alert(idcx)
-        alert('chamada com filtro:' + URL_API + '/api/caixalancamentoes/caixa/'+idcx+'/lancamento')
         const response = await fetch(URL_API + '/api/caixalancamentoes/caixa/'+idcx+'/lancamento');
         const data = await response.json();
         this.setState({caixalancamentos : data, loading: false});

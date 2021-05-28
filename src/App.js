@@ -5,8 +5,8 @@ import {Home} from './components/Home';
 import {Login} from './components/login/Login';
 import {ListaFuncionario} from './components/funcionario/ListaFuncionarios';
 import {AddAberturaCaixa} from './components/caixa/aberturacaixa';
-import {AddCaixaRecebe} from './components/caixa/recebecomanda';
-import {AddCaixaSangria} from './components/caixa/lancasangria';
+import AddCaixaRecebe from './components/caixa/recebecomanda';
+import AddCaixaSangria from './components/caixa/lancasangria';
 import ListaCaixa from './components/caixa/listacaixa';
 import ListaLancamento from './components/caixa/listalancamento';
 import {AddFuncionario} from './components/funcionario/AddFuncionario';
@@ -26,10 +26,10 @@ export default class App extends Component {
           <Route path='/login' component={Login}/>
           <Route path='/funcionario-lista' component={ListaFuncionario}/>
           <Route path='/caixa-abertura' component={AddAberturaCaixa}/>
-          <Route path='/caixa-recebe' component={AddCaixaRecebe}/>
-          <Route path='/caixa-sangria' component={AddCaixaSangria}/>
+          <Route path='/caixa-recebe/:id' component={AddCaixaRecebe}/>
+          <Route path='/caixa-sangria/:id' component={AddCaixaSangria}/>
           <Route path='/caixa-controle' component={ListaCaixa}/>
-          <Route path='/caixa-lancamento' component={ListaLancamento}/>
+          <Route path='/caixa-lancamento/:id' component={ListaLancamento}/>
           <Route path='/caixa-fechamento/edit/:id' component={FechamentoCaixa}/>
           <Route path='/funcionario-add' component={AddFuncionario}/>
         </Layout>
