@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import {logout} from '../service/auth';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
@@ -14,6 +15,10 @@ export class NavMenu extends Component {
       collapsed: true
     };
   }
+
+  handleLogout = () => {
+    logout();
+  };
 
   toggleNavbar () {
     this.setState({
@@ -47,6 +52,9 @@ export class NavMenu extends Component {
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-white" to="/funcionario-add">CADASTRAR FUNCIONÁRIO</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-white" onClick={this.handleLogout} >SAIR</NavLink>
                 </NavItem>
               </ul>
             </Collapse>

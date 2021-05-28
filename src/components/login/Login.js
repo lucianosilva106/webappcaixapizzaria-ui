@@ -1,70 +1,64 @@
 import React from 'react';
 import './Login.css';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import MontaDropDownLogin from './montadropdownlogin';
+import { Button, Form, Container } from 'reactstrap';
+//import MontaDropDownLogin from './montadropdownlogin';
 import { alert } from 'bootstrap';
-import URL_API from '../../service/service-api'
+import { withRouter} from 'react-router-dom';
+//import URL_API from '../../service/service-api'
+import {login} from '../../service/auth'
+
 //import { response } from 'express';
 
-export class Login extends React.Component {
+class Login extends React.Component {
     constructor() {
         super();
         this.state = {senha: ''};
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(evento) 
-    {
-        alert('cliquei log in:' + this.state.senha);
-//        alert('senha banco:' + Item.fun  )
-        const idfun = 1;
-        const urlfun = URL_API + '/api/funcionarios/' + idfun;
-        fetch(urlfun).then(response =>{
-            return response.json();
-        }).then(data =>{
-            const senhadb = document.querySelector("fun_senha");
-            alert(senhadb)
-//              atribuirCampos(data)
-        })
-//        alert(data)
+    async handleSubmit(e) {
+        e.preventDefault();
+        const {email, password} = this.state;
+        if (!email || !password) {
+          alert("Preencha e-mail e senha para continuar!");
+          return
+        }
+        try {
+          //let response = await fetch("/login", {email, password});
+          // response = response.json()
+          const response = {data: {token: '12112321321323213'}}
+          login(response.data.token);
+          this.props.history.push("/caixa-controle");
+        } catch (err) {
+         alert("Houve um problema com o login, verifique suas credenciais. T.T");
+        }
     }
-
-//    async atribuirCampos(data) {
-//        const senha = await document.querySelector("fun_senha");
-//        Alert(senha)
-//        
-//    }
 
     render() {
         return (
+          <Container>
             <body>
-                <div className="container col-md-6">
-                    <div className="box">
-                        <div class="card mx-auto shadow -lg p-5 mb-5 bg-white rounded animate_animated animate_zoomIn">
-                            <Form className="login-form" onSubmit={this.handleSubmit}>
-                                <h2>
-                                    <span className="font-weight-bold">Acesso ao sistema</span>
-                                </h2>
-                                <br/>
-                                <FormGroup>
-                                    <Label>Login</Label>
-                                    <div className="form-group">
-                                        {< MontaDropDownLogin />}
-                                    </div>
-                                </FormGroup>
-                                <br/>
-
-                                <FormGroup>
-                                    <Label>Senha</Label>
-                                    <Input name="senha" type="password" placeholder="Insira sua senha"  onChange={e => this.setState({ senha: e.target.value })}></Input>
-                                </FormGroup>
-                                <br/>
-                                <Button className="col-md-12 btn-lg btn-dark btn-block" type="submit" value="Enviar">Log in</Button>
-                            </Form>
-                        </div>
-                    </div>
+            <div className="container col-md-6">
+              <div className="box">
+                <div class="card mx-auto shadow -lg p-5 mb-5 bg-white rounded animate_animated animate_zoomIn">
+                  <Form className="login-form" onSubmit={this.handleSubmit}>
+                    <h2>
+                      <span className="font-weight-bold">Acesso ao sistema</span>
+                    </h2>
+                    <br/>
+                    <input type="email" placeholder="Endereço de e-mail"
+                           onChange={e => this.setState({email: e.target.value})}/>
+                    <input type="password" placeholder="Senha" onChange={e => this.setState({password: e.target.value})}/>
+    
+                    <br/>
+                    <Button className="col-md-12 btn-lg btn-dark btn-block" type="submit" value="Enviar">Log in</Button>
+                  </Form>
                 </div>
+              </div>
+            </div>
             </body>
+          </Container>
         );
-    }
+      }
 }
+export default withRouter(Login)

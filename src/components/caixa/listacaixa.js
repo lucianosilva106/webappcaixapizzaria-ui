@@ -33,14 +33,14 @@ class ListaCaixa extends Component {
     static renderCaixacontrolesTabela(caixacontroles) {
         
         return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
+            <table aria-labelledby="tabelLabel" size="sm">
               <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Data/Hora Abertura</th>
+                        <th>Abertura</th>
                         <th>Func</th>
-                        <th>Valor Fundo Caixa</th>
-                        <th>Data/Hora Fechamento</th>
+                        <th>Fundo Caixa</th>
+                        <th>Fechamento</th>
                         <th>Valor Final Caixa</th>
                         <th>Flag Fechado</th>
                         <th></th>
@@ -58,10 +58,10 @@ class ListaCaixa extends Component {
                             <td>{caixacontrole.flagcaixafechado}</td>
 
                             <td>
-                                <button className="btn btn-success" onClick={(id) => this.handleEdit(caixacontrole.id)}>Fechar Caixa</button> &nbsp;
-                                <button className="btn btn-danger" onClick={(id) => this.handleLancamento(caixacontrole.id)}>Ver Lancamentos</button>
-                                <button className="btn btn-danger" onClick={(id) => this.handleRecebecomanda(caixacontrole.id)}>Receber Comanda</button>
-                                <button className="btn btn-danger" onClick={(id) => this.handleLancasangria(caixacontrole.id)}>Lanca Sangria</button>
+                                <button className="btn btn-dark" sm="sm" onClick={(id) => this.handleEdit(caixacontrole.id)}>Fechar</button> &nbsp;
+                                <button className="btn btn-secondary" onClick={(id) => this.handleLancamento(caixacontrole.id)}>>></button> &nbsp;
+                                <button className="btn btn-success" onClick={(id) => this.handleRecebecomanda(caixacontrole.id)}>Recebe</button> &nbsp;
+                                <button className="btn btn-danger" onClick={(id) => this.handleLancasangria(caixacontrole.id)}>Sangria</button>
                             </td>
                         </tr>
                     )}
