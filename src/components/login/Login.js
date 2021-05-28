@@ -2,7 +2,7 @@ import React from 'react';
 import './Login.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import MontaDropDownLogin from './montadropdownlogin';
-//import { Alert, alert } from 'bootstrap';
+import { alert } from 'bootstrap';
 import URL_API from '../../service/service-api'
 //import { response } from 'express';
 
@@ -15,12 +15,16 @@ export class Login extends React.Component {
 
     handleSubmit(evento) 
     {
+        alert('cliquei log in:' + this.state.senha);
+//        alert('senha banco:' + Item.fun  )
         const idfun = 1;
         const urlfun = URL_API + '/api/funcionarios/' + idfun;
         fetch(urlfun).then(response =>{
             return response.json();
         }).then(data =>{
-//            atribuirCampos(data)
+            const senhadb = document.querySelector("fun_senha");
+            alert(senhadb)
+//              atribuirCampos(data)
         })
 //        alert(data)
     }

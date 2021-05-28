@@ -52,9 +52,9 @@ export class AddCaixaSangria extends React.Component {
             const response2 = await fetch(URL_API + '/api/caixalancamentoes');
             const datalan = await response2.json();
             this.setState({ caixalancamentos: datalan, loading: true });
-            toast.success('Comanda encerra com sucesso!')
+            toast.success('Sangria registrada com sucesso!')
         } catch (erro) {
-            toast.error('Erro ao encerrar a comanda')
+            toast.error('Erro ao registrar sangria')
         }
     }
     

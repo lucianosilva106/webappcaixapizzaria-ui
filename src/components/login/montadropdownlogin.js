@@ -1,5 +1,7 @@
+//import { Alert } from 'bootstrap';
 import React, { useEffect, useState } from 'react';
 import URL_API from '../../service/service-api'
+import { withRouter} from 'react-router-dom';
 
 const fetchURL = URL_API + '/api/funcionarios';
 const getItems = () => fetch(fetchURL).then(res => res.json());
@@ -26,4 +28,4 @@ function MontaDropDownLogin() {
         </div>
     );
 }
-export default MontaDropDownLogin;
+export default withRouter(MontaDropDownLogin);

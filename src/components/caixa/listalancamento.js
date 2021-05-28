@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import URL_API from '../../service/service-api';
+import {withRouter} from 'react-router-dom';
 
 export class ListaLancamento extends Component {
     static displayName = "Lista de Lançamentos de Caixa";
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { caixalancamentos: [], loading: true}
     }
 
@@ -77,8 +78,13 @@ export class ListaLancamento extends Component {
     }
 
     async populaCaixaLancamentoData() {
-        const response = await fetch(URL_API + '/api/caixalancamentoes');
+        
+        var idcx = this.props.match.params["id"]
+        alert(idcx)
+        alert('chamada com filtro:' + URL_API + '/api/caixalancamentoes/caixa/'+idcx+'/lancamento')
+        const response = await fetch(URL_API + '/api/caixalancamentoes/caixa/'+idcx+'/lancamento');
         const data = await response.json();
         this.setState({caixalancamentos : data, loading: false});
     }
 }
+export default withRouter(ListaLancamento)

@@ -8,7 +8,7 @@ import {AddAberturaCaixa} from './components/caixa/aberturacaixa';
 import {AddCaixaRecebe} from './components/caixa/recebecomanda';
 import {AddCaixaSangria} from './components/caixa/lancasangria';
 import ListaCaixa from './components/caixa/listacaixa';
-import {ListaLancamento} from './components/caixa/listalancamento';
+import ListaLancamento from './components/caixa/listalancamento';
 import {AddFuncionario} from './components/funcionario/AddFuncionario';
 import FechamentoCaixa from './components/caixa/fechamentocaixa';
 
