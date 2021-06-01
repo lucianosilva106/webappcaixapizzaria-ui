@@ -2,9 +2,9 @@ import React from 'react';
 import './Login.css';
 import { Button, Form, Container } from 'reactstrap';
 //import MontaDropDownLogin from './montadropdownlogin';
-import { alert } from 'bootstrap';
+import {alert} from 'bootstrap';
 import { withRouter} from 'react-router-dom';
-//import URL_API from '../../service/service-api'
+import URL_API from '../../service/service-api'
 import {login} from '../../service/auth'
 
 //import { response } from 'express';
@@ -20,13 +20,26 @@ class Login extends React.Component {
         e.preventDefault();
         const {email, password} = this.state;
         if (!email || !password) {
-          alert("Preencha e-mail e senha para continuar!");
+            alert("Preencha e-mail e senha para continuar!");
           return
         }
         try {
-          //let response = await fetch("/login", {email, password});
-          // response = response.json()
-          const response = {data: {token: '12112321321323213'}}
+          const LogObject = {
+              logemail: this.state.email,
+              logsenha: this.state.senha
+          }
+          const datalog = JSON.stringify(LogObject)
+          alert(datalog);
+          let response = await fetch(URL_API + "/api/login/", {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: datalog
+          })
+          response = response.json()
+          alert(response);
           login(response.data.token);
           this.props.history.push("/caixa-controle");
         } catch (err) {
@@ -49,9 +62,9 @@ class Login extends React.Component {
                     <input type="email" placeholder="Endereço de e-mail"
                            onChange={e => this.setState({email: e.target.value})}/>
                     <input type="password" placeholder="Senha" onChange={e => this.setState({password: e.target.value})}/>
-    
                     <br/>
                     <Button className="col-md-12 btn-lg btn-dark btn-block" type="submit" value="Enviar">Log in</Button>
+                    <br/>
                   </Form>
                 </div>
               </div>

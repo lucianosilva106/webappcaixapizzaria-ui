@@ -66,7 +66,6 @@ class FechamentoCaixa extends React.Component {
         }
 
         const dataput = JSON.stringify(novoObject)
-        alert('novo objeto:' + dataput);
         if (idcx > 0) {
           await fetch(URL_API + '/api/caixacontroles/' + idcx, {
             method: "PUT",
