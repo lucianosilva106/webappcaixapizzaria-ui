@@ -1,8 +1,6 @@
 import React from 'react';
 import './Login.css';
 import { Button, Form, Container } from 'reactstrap';
-//import { ToastContainer, toast } from 'react-toastify';
-//import 'react-toastify/dist/ReactToastify.css';
 import { withRouter} from 'react-router-dom';
 import URL_API from '../../service/service-api'
 import {login} from '../../service/auth'
@@ -35,13 +33,20 @@ class Login extends React.Component {
             },
             body: datalog
           })
-          response = response.json()
-//          alert('response token:' + response.token);
-          login(response.token);
-          this.props.history.push("/caixa-controle");
+          response = await response.json()
+          if (response.token > 0)
+          {
+            login(response.token);
+            this.props.history.push("/caixa-controle");
+          }
+          else
+          {
+            alert("Login e/ou Senha inválidos!")
+            this.props.history.push("/home");
+          }
         } catch (err) {
-          console.log(err)
           alert("Houve um problema com o login, verifique suas credenciais. T.T");
+          this.props.history.push("/home");
         }
     }
 

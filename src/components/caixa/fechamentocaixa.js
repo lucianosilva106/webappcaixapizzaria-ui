@@ -1,10 +1,8 @@
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
-//import 'react-toastify/dist/ReactToastify.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import URL_API from '../../service/service-api'
 import { withRouter} from 'react-router-dom';
-//import { response } from 'express';
 
 export class Caixacontrole {
     construtor(){
@@ -40,7 +38,6 @@ class FechamentoCaixa extends React.Component {
             
             this.setState({ title: "Edit", caixacontrole: data, loading: false });
 
-//            alert('id>0' + this.state )
         }
         else {
             this.state = { title: "Create", caixacontrole: new Caixacontrole(), loaging: false };
