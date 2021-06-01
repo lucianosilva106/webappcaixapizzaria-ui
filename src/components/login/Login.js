@@ -1,13 +1,11 @@
 import React from 'react';
 import './Login.css';
 import { Button, Form, Container } from 'reactstrap';
-//import MontaDropDownLogin from './montadropdownlogin';
-import {alert} from 'bootstrap';
+//import { ToastContainer, toast } from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.css';
 import { withRouter} from 'react-router-dom';
 import URL_API from '../../service/service-api'
 import {login} from '../../service/auth'
-
-//import { response } from 'express';
 
 class Login extends React.Component {
     constructor() {
@@ -25,11 +23,10 @@ class Login extends React.Component {
         }
         try {
           const LogObject = {
-              logemail: this.state.email,
-              logsenha: this.state.senha
+              email: this.state.email,
+              senha: this.state.password
           }
           const datalog = JSON.stringify(LogObject)
-          alert(datalog);
           let response = await fetch(URL_API + "/api/login/", {
             method: 'POST',
             headers: {
@@ -39,11 +36,12 @@ class Login extends React.Component {
             body: datalog
           })
           response = response.json()
-          alert(response);
-          login(response.data.token);
+//          alert('response token:' + response.token);
+          login(response.token);
           this.props.history.push("/caixa-controle");
         } catch (err) {
-         alert("Houve um problema com o login, verifique suas credenciais. T.T");
+          console.log(err)
+          alert("Houve um problema com o login, verifique suas credenciais. T.T");
         }
     }
 
